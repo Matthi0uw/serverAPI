@@ -5,15 +5,15 @@ var fs = require('fs-extra'),
 	stringOutput = '';
 
 /** Define HTTP server, implement some ressources **/
-function init(port, applicationServerIP, applicationServerPort, key) {
+function init(port, applicationServerIP, applicationServerPort) {
 	// Initialize variables
 	var app,
 		naithFlicks = {
 			'path': '/naithFlicks/',
-			'url': 'https://community-netflix-roulette.p.mashape.com/api.php',
-			'header': {
-				'X-Mashape-Key': key,
-			},
+			'url': 'http://netflixroulette.net/api/api.php',
+			// 'header': {
+			// 	'X-Mashape-Key': key,
+			// },
 		};
 	
 	// Initialize the HTTP server
@@ -44,6 +44,7 @@ function init(port, applicationServerIP, applicationServerPort, key) {
 						res.write('Error on the optimization application server: ');
 						res.end();
 					} else {
+						console.log(naithFlicks.url + '?actor='+req.params.actorId);
 						res.writeHead(200);
 						res.end(body);
 					}
@@ -62,6 +63,7 @@ function init(port, applicationServerIP, applicationServerPort, key) {
 						res.write('Error on the optimization application server: ');
 						res.end( );
 					} else {
+						console.log(naithFlicks.url + '?director='+req.params.directorName);
 						res.writeHead(200);
 						res.end( body );
 					}
@@ -80,6 +82,7 @@ function init(port, applicationServerIP, applicationServerPort, key) {
 						res.write('Error on the optimization application server: ');
 						res.end( );
 					} else {
+						console.log(naithFlicks.url + '?title='+req.params.title);
 						res.writeHead(200);
 						res.end( body );
 					}
@@ -101,9 +104,8 @@ var port = '8085',
 	applicationServerIP = '127.0.0.1',
 	applicationServerPort = port;
 
-if (params.key){
-	init(port, applicationServerIP, applicationServerPort, params.key);
+	init(port, applicationServerIP, applicationServerPort);
 	console.log(stringOutput +' RUN on : 127.0.0.1:8085 !\n');
-} else {
-	console.log('No key !!');
-}
+// } else {
+// 	console.log('No key !!');
+// }
